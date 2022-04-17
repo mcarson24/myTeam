@@ -10,7 +10,6 @@ const camelCase = string => {
 
 
 const render = async choice => {
-  const connection = await employees_controller.createConnection()
   return await {
     'viewAllDepartments': () => employees_controller.viewAllDepartments(),
     'viewAllRoles': () => employees_controller.viewAllRoles(),

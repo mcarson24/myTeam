@@ -1,27 +1,57 @@
-import mysql from 'mysql2/promise'
+import Role from '../models/Role.js'
+import Employee from '../models/Employee.js'
+import Department from '../models/Department.js'
+
+Role.belongsTo(Department, { foreignKey: 'department_id', as: 'department' })
+Role.hasMany(Employee, { foreignKey: 'role_id' })
+
+Department.hasMany(Role, { foreignKey: 'department_id' })
+
+Employee.belongsTo(Role, { foreignKey: 'role_id', as: 'role' })
+Employee.hasMany(Employee, { foreignKey: 'manager_id' })
+Employee.belongsTo(Employee, { foreignKey: 'manager_id', as: 'manager' })
 
 
-let connection
-
-const createConnection = async () => {
-  connection = await mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    database: 'myTeam'
+const viewAllDepartments = async () => {
+  const data = await Department.findAll({
+    attributes: ['id', 'name']
   })
+  let departments = []
+  data.forEach(({id, name}) => {
+    departments.push({id, name})
+  })
+  console.table(departments)
 }
 
-const query = async queryStatment => {
-  const [results] = await connection.query(queryStatment)
-  connection.end()
-  return results
+const viewAllRoles = async () => {
+  const roles = await Role.findAll({
+    include: 'department'
+  })
+  const rolesTable = []
+  roles.forEach(({title, salary, department}) => {
+    rolesTable.push({
+      title, salary, 
+      department: department.name
+    })
+  })
+  console.table(rolesTable)
 }
 
-const viewAllDepartments = async () => await query('SELECT * FROM departments')
-
-const viewAllRoles = async () => await query('SELECT * FROM roles')
-
-const viewAllEmployees = async () => await query('SELECT * FROM employees')
+const viewAllEmployees = async () => {
+  const results = await Employee.findAll({
+    include: ['role', 'manager']
+  })
+  const employeesTable = []
+  results.forEach(employee => {
+    let employeeData = {
+      Name: employee.getFullName(),
+      Role: employee.role.title,
+    }
+    if (employee.manager) employeeData.Manager = employee.manager.getFullName()
+    employeesTable.push(employeeData)
+  })
+  console.table(employeesTable)
+}
 
 
 const addADepartment = () => {
@@ -41,7 +71,6 @@ const updateAnEmployeeRole = () => {
 }
 
 export default { 
-  createConnection,
   viewAllDepartments,
   viewAllRoles,
   viewAllEmployees,
