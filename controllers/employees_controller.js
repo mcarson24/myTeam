@@ -24,10 +24,10 @@ const viewAllDepartments = async () => {
 }
 
 const viewAllRoles = async () => {
+  const rolesTable = []
   const roles = await Role.findAll({
     include: 'department'
   })
-  const rolesTable = []
   roles.forEach(({title, salary, department}) => {
     rolesTable.push({
       title, salary, 
@@ -38,10 +38,10 @@ const viewAllRoles = async () => {
 }
 
 const viewAllEmployees = async () => {
+  const employeesTable = []
   const results = await Employee.findAll({
     include: ['role', 'manager']
   })
-  const employeesTable = []
   results.forEach(employee => {
     let employeeData = {
       Name: employee.getFullName(),
