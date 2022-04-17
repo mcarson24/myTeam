@@ -7,10 +7,12 @@ const camelCase = string => {
   }).join('')
 }
 
+const render = data => {
+  return console.table(data)
+}
 
-
-const render = async choice => {
-  return await {
+const getData = choice => {
+  return {
     'viewAllDepartments': () => employees_controller.viewAllDepartments(),
     'viewAllRoles': () => employees_controller.viewAllRoles(),
     'viewAllEmployees': () => employees_controller.viewAllEmployees(),
@@ -21,4 +23,4 @@ const render = async choice => {
   }[camelCase(choice)]()
 }
 
-export { render }
+export { render, getData }

@@ -1,26 +1,16 @@
-import Role from '../models/Role.js'
-import Employee from '../models/Employee.js'
-import Department from '../models/Department.js'
-
-Role.belongsTo(Department, { foreignKey: 'department_id', as: 'department' })
-Role.hasMany(Employee, { foreignKey: 'role_id' })
-
-Department.hasMany(Role, { foreignKey: 'department_id' })
-
-Employee.belongsTo(Role, { foreignKey: 'role_id', as: 'role' })
-Employee.hasMany(Employee, { foreignKey: 'manager_id' })
-Employee.belongsTo(Employee, { foreignKey: 'manager_id', as: 'manager' })
-
+import { 
+  Role, 
+  Employee, 
+  Department 
+} from '../models/associations.js'
 
 const viewAllDepartments = async () => {
-  const data = await Department.findAll({
-    attributes: ['id', 'name']
-  })
-  let departments = []
+  const data = await Department.findAll()
+  let departmentsTable = []
   data.forEach(({id, name}) => {
-    departments.push({id, name})
+    departmentsTable.push({id, name})
   })
-  console.table(departments)
+  return departmentsTable
 }
 
 const viewAllRoles = async () => {
@@ -34,7 +24,7 @@ const viewAllRoles = async () => {
       department: department.name
     })
   })
-  console.table(rolesTable)
+  return rolesTable
 }
 
 const viewAllEmployees = async () => {
@@ -50,7 +40,7 @@ const viewAllEmployees = async () => {
     if (employee.manager) employeeData.Manager = employee.manager.getFullName()
     employeesTable.push(employeeData)
   })
-  console.table(employeesTable)
+  return employeesTable
 }
 
 

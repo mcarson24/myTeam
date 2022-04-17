@@ -1,7 +1,6 @@
 import { DataTypes, Model } from 'sequelize'
 import { sequelize  } from '../config/db.js'
-
-class Department extends Model {}
+export default class Department extends Model {}
 
 Department.init({
   id: {
@@ -15,4 +14,3 @@ Department.init({
   sequelize,
   timestamps: false
 })
-export default Department
