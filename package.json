@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Content Management System which can be used to easily view and interact with a company's employee database.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "jest"
   },
