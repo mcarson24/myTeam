@@ -1,5 +1,5 @@
-import employees_controller from './controllers/employees_controller.js'
 import 'console.table'
+import employees_controller from './controllers/employees_controller.js'
 
 const camelCase = string => {
   return string.split(' ').map((word, i) => {

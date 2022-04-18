@@ -3,9 +3,21 @@ import questions from './questions.js'
 import { sequelize } from './config/db.js'
 import { render, getData } from './helpers.js'
 
-inquirer.prompt(questions)
-  .then(async answers => {
-    const data = await getData(answers.choice)
-    render(data)
-    sequelize.close()
-  })
+const askQuestions = () => {
+  inquirer.prompt(questions)
+    .then(async answers => {
+      // The user wants to quit, close the connection and return.
+      if (answers.choice === 'Quit') {
+        sequelize.close()
+        return
+      } 
+      // Get the desired data and re-prompt the user for the next choice.
+      else {
+        let data = await getData(answers.choice)
+        render(data)
+        askQuestions()
+      }
+    })
+}
+
+askQuestions()
