@@ -19,7 +19,7 @@ const getData = (choice, arg) => {
     'viewAllEmployees': () => employees_controller.viewAllEmployees(),
     'addADepartment': arg => employees_controller.addADepartment(arg),
     'addARole': arg => employees_controller.addARole(arg),
-    // 'addAnEmployee': () => employees_controller.addAnEmployee(),
+    'addAnEmployee': arg => employees_controller.addAnEmployee(arg),
     // 'updateAnEmployeeRole': () => employees_controller.updateAnEmployeeRole(),
   }[camelCase(choice)](arg)
 }
