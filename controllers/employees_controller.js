@@ -7,9 +7,7 @@ import {
 const viewAllDepartments = async () => {
   const data = await Department.findAll()
   let departmentsTable = []
-  data.forEach(({id, name}) => {
-    departmentsTable.push({id, name})
-  })
+  data.forEach(({id, name}) => departmentsTable.push({id, name}))
   return departmentsTable
 }
 
@@ -43,7 +41,6 @@ const viewAllEmployees = async () => {
   })
   return employeesTable
 }
-
 
 const addADepartment = () => {
   return 'add a department'
