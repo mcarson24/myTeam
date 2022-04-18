@@ -1,3 +1,11 @@
+import employees_controller from './controllers/employees_controller.js'
+
+const getAllDepartments = async () => {
+  const departments = await employees_controller.viewAllDepartments()
+  
+  return departments.map(department => department.name)
+}
+
 export default [
   {
     type: 'list',
@@ -37,7 +45,7 @@ const roleQuestion = [
   {
     type: 'list',
     name: 'department',
-    choices: ['Electronics', 'Fulfillment', 'Inbound']
+    choices: async () => await getAllDepartments()
   }
 ]
 
