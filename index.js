@@ -1,5 +1,5 @@
 import inquirer from 'inquirer'
-import questions, { departmentQuestion } from './questions.js'
+import questions, { departmentQuestion, roleQuestion } from './questions.js'
 import { sequelize } from './config/db.js'
 import { render, getData } from './helpers.js'
 
@@ -17,6 +17,14 @@ const askQuestions = () => {
           inquirer.prompt(departmentQuestion)
           .then(async answers => {
             await getData('Add a department', answers.department)
+            askQuestions()
+          })
+        } else if (answers.choice === 'Add a role') {
+          inquirer.prompt(roleQuestion)
+          .then(async answers => {
+            console.log(answers)
+            const { title, salary, department } = answers
+            await getData('Add a role', { title, salary, department })
             askQuestions()
           })
         } else {

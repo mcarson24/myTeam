@@ -46,8 +46,9 @@ const addADepartment = async name => {
   if (name) await Department.create({ name })
 }
 
-const addARole = () => {
-  return 'add a role'
+const addARole = async ({ title, salary, department }) => {
+  const queriedDepartment = await Department.findOne({ where: { name: department } })
+  if (title && salary && department) await Role.create({ title, salary, department_id: queriedDepartment.id })
 }
 
 const addAnEmployee = () => {

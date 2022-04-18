@@ -23,4 +23,22 @@ const departmentQuestion = [
   }
 ]
 
-export { departmentQuestion }
+const roleQuestion = [
+  {
+    type: 'input',
+    name: 'title',
+    message: 'Role title:'
+  },
+  {
+    type: 'input',
+    name: 'salary',
+    message: 'Role salary:'
+  },
+  {
+    type: 'list',
+    name: 'department',
+    choices: ['Electronics', 'Fulfillment', 'Inbound']
+  }
+]
+
+export { departmentQuestion, roleQuestion }
