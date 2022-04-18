@@ -1,4 +1,3 @@
-import 'console.table'
 import employees_controller from './controllers/employees_controller.js'
 
 const camelCase = string => {
@@ -6,10 +5,6 @@ const camelCase = string => {
     if (i === 0) return word.toLowerCase()
     return word[0].toUpperCase() + word.substring(1)
   }).join('')
-}
-
-const render = data => {
-  return console.table(data)
 }
 
 const getData = (choice, arg) => {
@@ -24,4 +19,4 @@ const getData = (choice, arg) => {
   }[camelCase(choice)](arg)
 }
 
-export { render, getData }
+export { getData }

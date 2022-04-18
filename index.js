@@ -1,6 +1,8 @@
+import 'console.table'
 import inquirer from 'inquirer'
 import { sequelize } from './config/db.js'
-import { render, getData } from './helpers.js'
+import { getData } from './helpers.js'
+
 import questions, { 
   department, 
   employee, 
@@ -36,7 +38,7 @@ const askQuestions = () => {
       // Other prompts have no seconday prompts, but do return data.
       else {
         let data = await getData(choice)
-        render(data)
+        console.table(data)
         askQuestions()
       }
     })
