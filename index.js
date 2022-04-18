@@ -1,7 +1,7 @@
 import 'console.table'
 import inquirer from 'inquirer'
-import { sequelize } from './config/db.js'
 import { getData } from './helpers.js'
+import { sequelize } from './config/db.js'
 
 import questions, { 
   department, 
