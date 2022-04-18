@@ -83,4 +83,19 @@ const employeeQuestion = [
   }
 ]
 
-export { departmentQuestion, roleQuestion, employeeQuestion }
+const updateEmployeeQuestion = [
+  {
+    type: 'list',
+    name: 'employee',
+    message: 'Select employee to update:',
+    choices: async () => await getAllEmployees()
+  },
+  {
+    type: 'list',
+    'name': 'role',
+    message: `Select employee's new role:`,
+    choices: async () => await getAllRoles()
+  }
+]
+
+export { departmentQuestion, roleQuestion, employeeQuestion, updateEmployeeQuestion }
