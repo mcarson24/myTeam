@@ -14,6 +14,7 @@ const getAllRoles = async () => {
 
 const getAllEmployees = async () => {
   const employees = await employees_controller.viewAllEmployees()
+  employees.unshift({ Name: 'NONE' })
   return employees.map(employee => employee.Name)
 }
 

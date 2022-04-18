@@ -52,10 +52,17 @@ const addARole = async ({ title, salary, department }) => {
 }
 
 const addAnEmployee = async ({ first_name, last_name, role: title, manager: managerName}) => {
-  managerName = managerName.split(' ')
   const role = await Role.findOne({ where: { title } })
-  const manager = await Employee.findOne({ where: { first_name: managerName[0], last_name: managerName[1] } })
-  if (first_name, last_name, title, managerName) await Employee.create({ first_name, last_name, role_id: role.id, manager_id: manager.id})
+  
+  let manager, values
+  if (managerName !== 'NONE') {
+    managerName = managerName.split(' ')
+    manager = await Employee.findOne({ where: { first_name: managerName[0], last_name: managerName[1] } })
+    values = { first_name, last_name, role_id: role.id, manager_id: manager.id }
+  } else {
+    values = { first_name, last_name, role_id: role.id }
+  }
+  if (first_name, last_name, title, managerName) await Employee.create(values)
 }
 
 const updateAnEmployeeRole = async ({ employee: employeeName, role}) => {
