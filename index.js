@@ -1,5 +1,5 @@
 import inquirer from 'inquirer'
-import questions from './questions.js'
+import questions, { departmentQuestion } from './questions.js'
 import { sequelize } from './config/db.js'
 import { render, getData } from './helpers.js'
 
@@ -13,9 +13,17 @@ const askQuestions = () => {
       } 
       // Get the desired data and re-prompt the user for the next choice.
       else {
-        let data = await getData(answers.choice)
-        render(data)
-        askQuestions()
+        if (answers.choice === 'Add a department') {
+          inquirer.prompt(departmentQuestion)
+          .then(async answers => {
+            await getData('Add a department', answers.department)
+            askQuestions()
+          })
+        } else {
+          let data = await getData(answers.choice)
+          render(data)
+          askQuestions()
+        }
       }
     })
 }

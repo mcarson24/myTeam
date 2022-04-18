@@ -42,8 +42,8 @@ const viewAllEmployees = async () => {
   return employeesTable
 }
 
-const addADepartment = () => {
-  return 'add a department'
+const addADepartment = async name => {
+  if (name) await Department.create({ name })
 }
 
 const addARole = () => {

@@ -12,16 +12,16 @@ const render = data => {
   return console.table(data)
 }
 
-const getData = choice => {
+const getData = (choice, arg) => {
   return {
     'viewAllDepartments': () => employees_controller.viewAllDepartments(),
     'viewAllRoles': () => employees_controller.viewAllRoles(),
     'viewAllEmployees': () => employees_controller.viewAllEmployees(),
-    'addADepartment': () => employees_controller.addADepartment(),
-    'addARole': () => employees_controller.addARole(),
-    'addAnEmployee': () => employees_controller.addAnEmployee(),
-    'updateAnEmployeeRole': () => employees_controller.updateAnEmployeeRole(),
-  }[camelCase(choice)]()
+    'addADepartment': (arg) => employees_controller.addADepartment(arg),
+    // 'addARole': () => employees_controller.addARole(),
+    // 'addAnEmployee': () => employees_controller.addAnEmployee(),
+    // 'updateAnEmployeeRole': () => employees_controller.updateAnEmployeeRole(),
+  }[camelCase(choice)](arg)
 }
 
 export { render, getData }

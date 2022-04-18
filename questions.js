@@ -14,3 +14,13 @@ export default [
     ],
   }
 ]
+
+const departmentQuestion = [
+  {
+    type: 'input',
+    name: 'department',
+    message: 'Department name:'
+  }
+]
+
+export { departmentQuestion }
