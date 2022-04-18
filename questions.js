@@ -35,7 +35,7 @@ export default [
   }
 ]
 
-const departmentQuestion = [
+const department = [
   {
     type: 'input',
     name: 'department',
@@ -43,7 +43,7 @@ const departmentQuestion = [
   }
 ]
 
-const roleQuestion = [
+const role = [
   {
     type: 'input',
     name: 'title',
@@ -61,7 +61,7 @@ const roleQuestion = [
   }
 ]
 
-const employeeQuestion = [
+const employee = [
   {
     type: 'input',
     name: 'first_name',
@@ -84,7 +84,7 @@ const employeeQuestion = [
   }
 ]
 
-const updateEmployeeQuestion = [
+const updateEmployee = [
   {
     type: 'list',
     name: 'employee',
@@ -99,4 +99,4 @@ const updateEmployeeQuestion = [
   }
 ]
 
-export { departmentQuestion, roleQuestion, employeeQuestion, updateEmployeeQuestion }
+export { department, role, employee, updateEmployee }

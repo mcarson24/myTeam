@@ -2,11 +2,19 @@ import inquirer from 'inquirer'
 import { sequelize } from './config/db.js'
 import { render, getData } from './helpers.js'
 import questions, { 
-  departmentQuestion, 
-  employeeQuestion, 
-  roleQuestion, 
-  updateEmployeeQuestion 
+  department, 
+  employee, 
+  role, 
+  updateEmployee 
 } from './questions.js'
+
+// These choices have secondary prompts and return no data.
+const prompts = {
+  'Add a department': department,
+  'Add a role': role,
+  'Add an employee': employee,
+  'Update an employee role': updateEmployee
+}
 
 const askQuestions = () => {
   inquirer.prompt(questions)
@@ -16,38 +24,20 @@ const askQuestions = () => {
         sequelize.close()
         return
       } 
-      // Get the desired data and re-prompt the user for the next choice.
+      // Otherwise, get the desired data and re-prompt the user for the next choice.
+      const choice = answers.choice
+      if (Object.keys(prompts).includes(choice)) {
+        inquirer.prompt(prompts[choice])
+          .then(async answers => {
+            await getData(choice, answers)
+            askQuestions()
+          })
+      } 
+      // Other prompts have no seconday prompts, but do return data.
       else {
-        if (answers.choice === 'Add a department') {
-          inquirer.prompt(departmentQuestion)
-          .then(async answers => {
-            await getData('Add a department', answers.department)
-            askQuestions()
-          })
-        } else if (answers.choice === 'Add a role') {
-          inquirer.prompt(roleQuestion)
-          .then(async answers => {
-            await getData('Add a role', answers)
-            askQuestions()
-          })
-        } else if (answers.choice === 'Add an employee') {
-          inquirer.prompt(employeeQuestion)
-            .then(async answers => {
-              await getData('Add an employee', answers)
-              askQuestions()
-            })
-        } else if (answers.choice === 'Update an employee role') {
-          inquirer.prompt(updateEmployeeQuestion)
-            .then(async answers => {
-              // DO STUFF
-              getData('Update an employee role', answers)
-              askQuestions()
-            })
-        } else {
-          let data = await getData(answers.choice)
-          render(data)
-          askQuestions()
-        }
+        let data = await getData(choice)
+        render(data)
+        askQuestions()
       }
     })
 }
