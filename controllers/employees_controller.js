@@ -75,12 +75,24 @@ const updateAnEmployeeRole = async ({ employee: employeeName, role}) => {
   await employee.save()
 }
 
+const updateManager = async ({ employee: employeeName, manager: managerName }) => {
+  employeeName = employeeName.split(' ')
+  managerName = managerName.split(' ')
+
+  const employee = await Employee.findOne({ where: { first_name: employeeName[0], last_name: employeeName[1] }})
+  const manager = await Employee.findOne({ where: { first_name: managerName[0], last_name: managerName[1] }})
+
+  await employee.update(({ manager_id: manager.id }))
+  await employee.save()
+}
+
 export default { 
-  viewAllDepartments,
-  viewAllRoles,
-  viewAllEmployees,
-  addADepartment,
   addARole,
+  viewAllRoles,
   addAnEmployee,
+  updateManager,
+  addADepartment,
+  viewAllEmployees,
+  viewAllDepartments,
   updateAnEmployeeRole
 }

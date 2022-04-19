@@ -30,6 +30,7 @@ export default [
       'Add a role', 
       'Add an employee', 
       'Update an employee role',
+      'Update an employee\'s manager',
       'Quit'
     ],
   }
@@ -99,4 +100,31 @@ const updateEmployee = [
   }
 ]
 
-export { department, role, employee, updateEmployee }
+const updateManager = [
+  {
+    type: 'list',
+    name: 'employee',
+    message: 'Select an employee:',   
+    choices: async () => await getAllEmployees()
+  },
+  {
+    type: 'list',
+    name: 'manager',
+    message: 'Select a manager:',
+    choices: async answers => {
+      const employees = await getAllEmployees()
+      // Make sure the selected employee is not returned as a potential manager
+      return employees.filter(employee => {
+        if (employee !== answers.employee) return employee
+      })
+    }
+  }
+]
+
+export { 
+  role, 
+  employee, 
+  department, 
+  updateManager,
+  updateEmployee
+}

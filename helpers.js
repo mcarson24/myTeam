@@ -1,6 +1,7 @@
 import employees_controller from './controllers/employees_controller.js'
 
 const camelCase = string => {
+  string = string.replace('\'', '')
   return string.split(' ').map((word, i) => {
     if (i === 0) return word.toLowerCase()
     return word[0].toUpperCase() + word.substring(1)
@@ -16,6 +17,7 @@ const getData = (choice, arg) => {
     'addARole': arg => employees_controller.addARole(arg),
     'addAnEmployee': arg => employees_controller.addAnEmployee(arg),
     'updateAnEmployeeRole': arg => employees_controller.updateAnEmployeeRole(arg),
+    'updateAnEmployeesManager': arg => employees_controller.updateManager(arg)
   }[camelCase(choice)](arg)
 }
 

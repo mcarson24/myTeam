@@ -4,9 +4,10 @@ import { getData } from './helpers.js'
 import { sequelize } from './config/db.js'
 
 import questions, { 
-  department, 
-  employee, 
   role, 
+  employee, 
+  department, 
+  updateManager,
   updateEmployee 
 } from './questions.js'
 
@@ -15,7 +16,8 @@ const prompts = {
   'Add a department': department,
   'Add a role': role,
   'Add an employee': employee,
-  'Update an employee role': updateEmployee
+  'Update an employee role': updateEmployee,
+  'Update an employee\'s manager': updateManager
 }
 
 const askQuestions = () => {
