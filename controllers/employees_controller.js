@@ -70,7 +70,6 @@ const updateAnEmployeeRole = async ({ employee: employeeName, role}) => {
 
   const employee = await Employee.findOne({ where: { first_name: name[0], last_name: name[1] } })
   const newRole = await Role.findOne({ where: { title: role } })
-  
   await employee.update({ role_id: newRole.id })
   await employee.save()
 }

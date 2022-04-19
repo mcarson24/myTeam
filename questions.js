@@ -12,9 +12,11 @@ const getAllRoles = async () => {
   return roles.map(role => role.title)
 }
 
-const getAllEmployees = async () => {
+// Sometimes we want to include a 'NONE' option for when employee's
+// potentially may not have a manager.
+const getAllEmployees = async (includeNone = true) => {
   const employees = await employees_controller.viewAllEmployees()
-  employees.unshift({ Name: 'NONE' })
+  if (includeNone) employees.unshift({ Name: 'NONE' })
   return employees.map(employee => employee.Name)
 }
 
@@ -105,7 +107,7 @@ const updateManager = [
     type: 'list',
     name: 'employee',
     message: 'Select an employee:',   
-    choices: async () => await getAllEmployees()
+    choices: async () => await getAllEmployees(false)
   },
   {
     type: 'list',
