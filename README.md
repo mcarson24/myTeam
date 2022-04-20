@@ -1,4 +1,4 @@
-# myTean
+# myTeam
 
 A simple and easy-to-use content management system for a company's employees
 
